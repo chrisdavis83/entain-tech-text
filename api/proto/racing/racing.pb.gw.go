@@ -124,7 +124,7 @@ func RegisterRacingHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMu
 
 // RegisterRacingHandler registers the http handlers for service Racing to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
-func RegisterRacingHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+func RegisterRacingHandler(ctx context.Context, mux *runtime.ServeMux, conn grpc.ClientConnInterface) error {
 	return RegisterRacingHandlerClient(ctx, mux, NewRacingClient(conn))
 }
 
