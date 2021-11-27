@@ -115,6 +115,7 @@ func (Race_Status) EnumDescriptor() ([]byte, []int) {
 	return file_racing_racing_proto_rawDescGZIP(), []int{5, 0}
 }
 
+// Used for the id holder of a race request
 type RaceRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
