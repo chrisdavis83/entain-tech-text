@@ -13,7 +13,8 @@ func getRaceQueries() map[string]string {
 				name, 
 				number, 
 				visible, 
-				advertised_start_time 
+				advertised_start_time,
+				(case when advertised_start_time > DATE('now') then '0' else '1' end) as status
 			FROM races
 		`,
 	}
