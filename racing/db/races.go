@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"github.com/golang/protobuf/ptypes"
 	_ "github.com/mattn/go-sqlite3"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -84,7 +83,8 @@ func (r *racesRepo) applyFilter(query string, filter *racing.ListRacesRequestFil
 
 	// Handle the filtering of only showing the visible races
 	if filter.OnlyShowVisible {
-		clauses = append(clauses, "visible = "+strconv.FormatBool(filter.OnlyShowVisible)+"")
+		clauses = append(clauses, "visible = (?)")
+		args = append(args, filter.OnlyShowVisible)
 	}
 
 	if len(clauses) != 0 {
