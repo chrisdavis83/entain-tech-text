@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"github.com/golang/protobuf/ptypes"
 	_ "github.com/mattn/go-sqlite3"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -84,7 +83,8 @@ func (r *racesRepo) applyFilter(query string, filter *racing.ListRacesRequestFil
 
 	// Handle the filtering of only showing the visible races
 	if filter.OnlyShowVisible {
-		clauses = append(clauses, "visible = "+strconv.FormatBool(filter.OnlyShowVisible)+"")
+		clauses = append(clauses, "visible = (?)")
+		args = append(args, filter.OnlyShowVisible)
 	}
 
 	if len(clauses) != 0 {
@@ -129,7 +129,7 @@ func (r *racesRepo) applySortOrdering(query string, request *racing.ListRacesReq
 		args []interface{}
 	)
 
-	if len(strings.TrimSpace(request.OrderBy)) == 0 {
+	if !orderByHasValidValue(request) {
 		return query, args
 	}
 
@@ -137,4 +137,19 @@ func (r *racesRepo) applySortOrdering(query string, request *racing.ListRacesReq
 
 	return query, args
 
+}
+
+var validColumnNames = []string{"id", "meeting_id", "name", "number", "visible", "advertised_start_time"}
+
+// This is to protect against SQL injection, i could also use a map from rest field to database column so the
+// order by attribute could use the rest attribute not the database column name
+func orderByHasValidValue(request *racing.ListRacesRequest) bool {
+	var result = false
+	for _, x := range validColumnNames {
+		if x == request.OrderBy {
+			result = true
+			break
+		}
+	}
+	return result
 }
