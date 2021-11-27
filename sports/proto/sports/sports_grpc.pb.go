@@ -18,7 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SportsClient interface {
-	// ListSports will return a collection of all sports.
+	// ListSports returns a list of all sports.
 	ListSports(ctx context.Context, in *ListSportsRequest, opts ...grpc.CallOption) (*ListSportsResponse, error)
 }
 
@@ -43,7 +43,7 @@ func (c *sportsClient) ListSports(ctx context.Context, in *ListSportsRequest, op
 // All implementations should embed UnimplementedSportsServer
 // for forward compatibility
 type SportsServer interface {
-	// ListSports will return a collection of all sports.
+	// ListSports returns a list of all sports.
 	ListSports(context.Context, *ListSportsRequest) (*ListSportsResponse, error)
 }
 

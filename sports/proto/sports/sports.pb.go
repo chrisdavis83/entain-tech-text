@@ -74,6 +74,7 @@ func (Sport_SportType) EnumDescriptor() ([]byte, []int) {
 	return file_sports_sports_proto_rawDescGZIP(), []int{2, 0}
 }
 
+// Requests/Responses
 type ListSportsRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -160,7 +161,7 @@ func (x *ListSportsResponse) GetSports() []*Sport {
 	return nil
 }
 
-// A race resource.
+// A sport resource.
 type Sport struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -173,7 +174,7 @@ type Sport struct {
 	SportType Sport_SportType `protobuf:"varint,4,opt,name=sportType,proto3,enum=sports.Sport_SportType" json:"sportType,omitempty"`
 	// Visible represents whether or not the sport is visible.
 	Visible bool `protobuf:"varint,5,opt,name=visible,proto3" json:"visible,omitempty"`
-	// AdvertisedStartTime is the time the race is advertised to run.
+	// AdvertisedStartTime is the time the sport is advertised to run.
 	AdvertisedStartTime *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=advertised_start_time,json=advertisedStartTime,proto3" json:"advertised_start_time,omitempty"`
 }
 
